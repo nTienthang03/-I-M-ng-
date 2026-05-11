@@ -7,6 +7,73 @@ Bạn đang bị lỗi YAML trong file:
 😄
 
 ---
+# Hướng dẫn cấu hình mạng Ubuntu VM cho Spark Cluster (VMware)
+
+## Mục tiêu
+
+* 3 máy Ubuntu VM ping được nhau
+* Có internet
+* Có IP tĩnh
+* Chuẩn bị cho Spark Cluster
+
+---
+
+# Bước 1 — Tạm bật DHCP để xem gateway thật
+
+Mở file netplan:
+
+```bash
+sudo nano /etc/netplan/00-installer-config.yaml
+```
+
+Sửa thành:
+
+```yaml
+network:
+  version: 2
+  ethernets:
+    ens33:
+      dhcp4: true
+```
+
+Lưu:
+
+```text
+CTRL + O
+ENTER
+CTRL + X
+```
+
+Áp dụng:
+
+```bash
+sudo netplan apply
+```
+
+---
+
+# Bước 2 — Xem gateway thật
+
+```bash
+ip route
+```
+
+Ví dụ kết quả:
+
+```text
+default via 192.168.102.1 dev ens33
+```
+
+Gateway chính là:
+
+```text
+192.168.102.1
+```
+
+---
+
+# Bước 3 — Đặt IP tĩnh
+
 
 # Làm nhanh nhất
 
